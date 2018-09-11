@@ -1,0 +1,43 @@
+#!/bin/sh
+
+set -e
+
+line=$(grep "base " /etc/libnss-ldap.conf)
+basedn=$(echo $line | cut -d' ' -f2)
+sudoers_base="sudoers_base ou=Roles,"$basedn
+base="BASE "$basedn
+
+#echo $base
+#echo $basedn
+
+
+line=$(grep "host " /etc/libnss-ldap.conf)
+host=$(echo $line | cut -d' ' -f2)
+uri="URI ldap://"$host":389"
+#echo $uri
+
+sed -i '/BASE /c\' /etc/sudo-ldap.conf
+sed -i '/sudoers_base /c\' /etc/sudo-ldap.conf
+sed -i '/URI /c\' /etc/sudo-ldap.conf
+
+printf "$sudoers_base\n" | tee -a /etc/sudo-ldap.conf
+printf "$base\n" | tee -a /etc/sudo-ldap.conf
+printf "$uri\n" | tee -a /etc/sudo-ldap.conf
+
+
+
+
+#
+#echo "/etc/nsswitch.conf dosyasına ldap ekleniyor"
+#sudo sed -i 's/passwd:         compat/passwd:         compat ldap/g' /etc/nsswitch.conf
+#sudo sed -i 's/group:          compat/group:          compat ldap/g' /etc/nsswitch.conf
+#sudo sed -i 's/shadow:         compat/shadow:         compat ldap/g' /etc/nsswitch.conf
+
+#echo "/etc/pam.d/common-password düzenleniyor"
+#sudo sed -i 's/pam_ldap.so use_authtok try_first_pass/pam_ldap.so try_first_pass/g' /etc/pam.d/common-password
+#sudo sed -i 's/password sufficient                      pam_script.so/#password sufficient                      pam_script.so/g' /etc/pam.d/common-password
+
+#echo "/etc/pam.d/common-session düzenleniyor"
+#sed -i '/session required        pam_mkhomedir.so skel=/etc/skel umask=0077/c\' /etc/pam.d/common-session
+#printf "session required        pam_mkhomedir.so skel=/etc/skel umask=0077" | tee -a /etc/pam.d/common-session
+#DEBIAN_FRONTEND=noninteractive pam-auth-update
