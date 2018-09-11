@@ -6,7 +6,7 @@ Maintainer: Ömer Çakmak <farukomercakmak@gmail.com>
 
 Package: ldap-roles
 Section: utils
-Depensds: sudo-ldap,
+Depends: sudo-ldap,
 	  libpam-ldap,
 	  libnss-ldap
 Architecture: all
