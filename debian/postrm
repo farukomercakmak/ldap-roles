@@ -2,3 +2,7 @@
 
 set -e
 
+
+sed -i '/BASE /c\' /etc/sudo-ldap.conf
+sed -i '/sudoers_base /c\' /etc/sudo-ldap.conf
+sed -i '/URI /c\' /etc/sudo-ldap.conf
