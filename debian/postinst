@@ -7,10 +7,9 @@ basedn=$(echo $line | cut -d' ' -f2)
 sudoers_base="sudoers_base ou=Roles,"$basedn
 base="BASE "$basedn
 
-line=$(grep "host " /etc/libnss-ldap.conf)
+line=$(grep "uri " /etc/libnss-ldap.conf)
 host=$(echo $line | cut -d' ' -f2)
-uri="URI ldap://"$host":389"
-#echo $uri
+uri="URI "$host
 
 sed -i '/BASE /c\' /etc/sudo-ldap.conf
 sed -i '/sudoers_base /c\' /etc/sudo-ldap.conf
