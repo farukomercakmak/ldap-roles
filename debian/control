@@ -7,8 +7,8 @@ Maintainer: Ömer Çakmak <farukomercakmak@gmail.com>
 Package: ldap-roles
 Section: utils
 Depends: sudo-ldap,
-	  libpam-ldap,
-	  libnss-ldap
+	 libpam-ldap,
+	 libnss-ldap
 Architecture: all
 Description: Role assignment package for ldap user
 	Ldap kullanıcısına role atama paketi
