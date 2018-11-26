@@ -8,7 +8,8 @@ Package: ldap-roles
 Section: utils
 Depends: sudo-ldap,
 	 libpam-ldap,
-	 libnss-ldap
+	 libnss-ldap,
+	 usermode
 Architecture: all
 Description: Role assignment package for ldap user
 	Ldap kullanıcısına role atama paketi
